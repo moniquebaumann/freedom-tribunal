@@ -17,7 +17,7 @@ contract FreedomTribunal {
   mapping(bytes32 => IAsset) public assets;
   mapping(uint256 => IVote) public votes;
   mapping(uint256 => bytes32) public voteToAssetHash;
-  address public nativeFreedomCash = 0x099471B71c9D8b0C6b616eE9A7C645e22cA9cfF7;
+  address public FREI = 0x099471B71c9D8b0C6b616eE9A7C645e22cA9cfF7;
 
   struct IAsset{
     uint256 upVoteScore;
@@ -49,7 +49,7 @@ contract FreedomTribunal {
   function appreciateAsset(bytes32 hash, uint256 appreciationAmountFC) public payable  {
 		if(assets[hash].reconciled) { revert Nonsense(); }    
     voteCounter++;
-    IFreedomCash(nativeFreedomCash).buyFreedomCash{value: msg.value}(address(this), appreciationAmountFC);
+    IFreedomCash(FREI).buyFreedomCash{value: msg.value}(address(this), appreciationAmountFC);
     assets[hash].upVoteScore += appreciationAmountFC;
     IVote memory vote = IVote(payable (msg.sender), appreciationAmountFC, true, 0, false);
     votes[voteCounter] = vote;
@@ -58,7 +58,7 @@ contract FreedomTribunal {
   function depreciateAsset(bytes32 hash, uint256 depreciationAmountFC) public payable  {
     if(assets[hash].reconciled) { revert Nonsense(); }    
     voteCounter++;    
-    IFreedomCash(nativeFreedomCash).buyFreedomCash{value: msg.value}(address(this), depreciationAmountFC);
+    IFreedomCash(FREI).buyFreedomCash{value: msg.value}(address(this), depreciationAmountFC);
     assets[hash].downVoteScore += depreciationAmountFC;
     IVote memory vote = IVote(payable(msg.sender), depreciationAmountFC, false, 0, false);
     votes[voteCounter] = vote;
@@ -100,7 +100,7 @@ contract FreedomTribunal {
         }
       }
     }    
-    IERC20(nativeFreedomCash).transfer(msg.sender, amount);
+    IERC20(FREI).transfer(msg.sender, amount);
   }
   function getNumberOfWinningVotes(bytes32 hash, bool up) public view returns (uint256 counter) {
     for (uint256 i = 1; i <= voteCounter; i++) {
