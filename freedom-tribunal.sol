@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GNU AFFERO GENERAL PUBLIC LICENSE Version 3
 
 // Incentive System for Truth Exploration, Respect & Freedom. 
-
+// Can be utilized for decentralized content moderation.
 // Any project can become a community guarded project via the Freedom Tribunal.
-
-// The Freedom Tribunal leverages Freedom Cash as decentralized currency to incentivize voting.
+// The Freedom Tribunal leverages FREI (https://polygonscan.com/token/0x099471b71c9d8b0c6b616ee9a7c645e22ca9cff7) 
+// as decentralized currency to incentivize voting.
 
 pragma solidity 0.8.19;
 
@@ -17,7 +17,7 @@ contract FreedomTribunal {
   mapping(bytes32 => IAsset) public assets;
   mapping(uint256 => IVote) public votes;
   mapping(uint256 => bytes32) public voteToAssetHash;
-  address public nativeFreedomCash = 0x1Dc4E031e7737455318C77f7515F8Ea8bE280a93;
+  address public nativeFreedomCash = 0x099471B71c9D8b0C6b616eE9A7C645e22cA9cfF7;
 
   struct IAsset{
     uint256 upVoteScore;
